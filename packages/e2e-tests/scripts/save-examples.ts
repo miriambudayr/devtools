@@ -82,7 +82,6 @@ async function saveRecording(example: string, recordingId?: string) {
 
   const done = logAnimated(`Saving ${chalk.bold(example)} with recording id ${recordingId}`);
 
-  console.log(`config.backendUrl: ${config.backendUrl}}`);
   const id = await uploadRecording(recordingId, {
     apiKey: config.replayApiKey,
     server: config.backendUrl,
@@ -135,14 +134,11 @@ async function saveExamples(
 async function saveBrowserExamples() {
   await saveExamples("browser", config.browserExamplesPath, ".html", saveBrowserExample);
 
-  console.log(">>> line 137: ran saveExamples");
-
   // This example is in a subdirectory so we can't look it up as easily, so we just do it manually.
   if (
     (target === "all" || target === "browser") &&
     (exampleFilename === null || exampleFilename === "cra/dist/index.html")
   ) {
-    console.log(">>> line 144: going to saveBrowserExample");
     await saveBrowserExample({ exampleFilename: "cra/dist/index.html" });
   }
 }
@@ -162,9 +158,7 @@ async function saveBrowserExample({ exampleFilename }: { exampleFilename: string
   });
 
   try {
-    console.log(`>>> line 165 exampleUrl ${exampleUrl}`);
     const recordingId = await uploadLastRecording(exampleUrl);
-    console.log(`>>> line 165: recordingId ${recordingId}`);
 
     done();
 
