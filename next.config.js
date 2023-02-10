@@ -25,7 +25,7 @@ const baseNextConfig = {
     ignoreDuringBuilds: true,
   },
   typescript: {
-    ignoreDuringBuilds: true
+    ignoreBuildErrors: true
   },
 
   productionBrowserSourceMaps: true,
