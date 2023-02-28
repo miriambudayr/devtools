@@ -190,8 +190,10 @@ export async function getFrameLocationsFromMessage(message: Locator) {
   );
 
   console.log(`getFrameLocationsFromMessage:187 - frameLocations: ${frameLocations}`);
+  const innerTexts = await frameLocations.allInnerTexts();
+  console.log(`frameLocations innerText: ${innerTexts}`);
 
-  return await frameLocations.allInnerTexts();
+  return innerTexts
 }
 
 export async function getErrorFrameLocationsFromMessage(message: Locator) {
@@ -204,7 +206,7 @@ export async function getErrorFrameLocationsFromMessage(message: Locator) {
   console.log(`getErrorFrameLocationsFromMessage:204 - frameLocations: ${frameLocations}`);
   const innerTexts = await frameLocations.allInnerTexts();
 
-  console.log(`getErrorFrameLocationsFromMessage:207 - innerTexts: ${frameLocations}`);
+  console.log(`errorFrameLocations innerTexts: ${innerTexts}`);
 
   return innerTexts;
 }
