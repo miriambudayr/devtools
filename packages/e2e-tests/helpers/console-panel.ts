@@ -125,12 +125,12 @@ export async function expandErrorStack(message: Locator) {
   console.log(`expandErrorStack:125 - expander: ${expander}`);
   const state = await expander.getAttribute("data-test-state");
   console.log(`expandErrorStack:127 - state: ${state}`);
-  if (state === "closed") {
+  // if (state === "closed") {
     await expander.click();
     await message.locator('[data-test-name="ErrorStack"]').waitFor();
     console.log(`expandErrorStack:131 - expander clicked`);
 
-  }
+  // }
 }
 
 export async function expandFilterCategory(page: Page, categoryName: string) {
