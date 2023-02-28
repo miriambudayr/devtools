@@ -202,7 +202,11 @@ export async function getErrorFrameLocationsFromMessage(message: Locator) {
     '[data-test-name="ErrorStack"] [data-test-name="Console-Source"]'
   );
   console.log(`getErrorFrameLocationsFromMessage:204 - frameLocations: ${frameLocations}`);
-  return await frameLocations.allInnerTexts();
+  const innerTexts = await frameLocations.allInnerTexts();
+
+  console.log(`getErrorFrameLocationsFromMessage:207 - innerTexts: ${frameLocations}`);
+
+  return innerTexts;
 }
 
 export async function openConsolePanel(page: Page): Promise<void> {

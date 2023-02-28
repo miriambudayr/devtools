@@ -26,6 +26,11 @@ test("sourcemap_stacktrace: Test that stacktraces are sourcemapped", async ({ pa
   ]);
   const errorLocations = await getErrorFrameLocationsFromMessage(message);
 
+  const sliced = errorLocations.slice(0, 7);
+
+  console.log(`>>>sliced: ${sliced}`);
+
+
   expect(errorLocations.slice(0, 7)).toEqual([
     "App.js:9",
     "App.js:33",
