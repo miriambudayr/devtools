@@ -7,7 +7,6 @@ import {
   getFrameLocationsFromMessage,
   openConsolePanel,
 } from "../helpers/console-panel";
-import { delay } from "../helpers/utils";
 
 test("sourcemap_stacktrace: Test that stacktraces are sourcemapped", async ({ page }) => {
   await startTest(page, "cra/dist/index.html");
@@ -16,6 +15,7 @@ test("sourcemap_stacktrace: Test that stacktraces are sourcemapped", async ({ pa
 
   const message = await findConsoleMessage(page, "Error: Baz", "console-error");
   const locations = await getFrameLocationsFromMessage(message);
+  console.log(`getFrameLocationsFromMessage ran with message ${message}`);
   expect(locations).toEqual([
     "App.js:35",
     "regeneratorRuntime.js:44",
@@ -26,7 +26,6 @@ test("sourcemap_stacktrace: Test that stacktraces are sourcemapped", async ({ pa
   ]);
   const errorLocations = await getErrorFrameLocationsFromMessage(message);
 
-  await delay(1000);
   expect(errorLocations.slice(0, 7)).toEqual([
     "App.js:9",
     "App.js:33",

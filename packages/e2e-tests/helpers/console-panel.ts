@@ -1,5 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
 import chalk from "chalk";
+import { debug } from "console";
 
 import { submitCurrentText as submitCurrentTextLexical, type as typeLexical } from "./lexical";
 import { waitForPaused } from "./pause-information-panel";
@@ -107,19 +108,28 @@ export async function verifyConsoleTerminalTypeAheadSuggestions(
 }
 
 export async function expandConsoleMessage(message: Locator) {
+  console.log(`expandConsoleMessage ran with message ${message}`);
   const expander = message.locator('[data-test-name="Expandable"]').first();
   const state = await expander.getAttribute("data-test-state");
+  console.log(`expanderConsoleMessage:114 - state: ${state}`);
   if (state === "closed") {
+    console.log(`expanderConsoleMessage:116 - state: ${state}`);
     await expander.click();
+    console.log('expanderConsoleMessage:118 - expander clicked');
   }
 }
 
 export async function expandErrorStack(message: Locator) {
+  console.log(`expandErrorStack:123 - message: ${message}`); 
   const expander = message.locator('[data-test-name="Expandable"]').last();
+  console.log(`expandErrorStack:125 - expander: ${expander}`);
   const state = await expander.getAttribute("data-test-state");
+  console.log(`expandErrorStack:127 - state: ${state}`);
   if (state === "closed") {
     await expander.click();
     await message.locator('[data-test-name="ErrorStack"]').waitFor();
+    console.log(`expandErrorStack:131 - expander clicked`);
+
   }
 }
 
@@ -173,17 +183,25 @@ export function getMessageSourceLink(message: Locator): Locator {
 
 export async function getFrameLocationsFromMessage(message: Locator) {
   await expandConsoleMessage(message);
+  console.log(`getFrameLocationsFromMessage:181 - expandConsoleMessage done`);
+
   const frameLocations = message.locator(
     '[data-test-name="Stack"] [data-test-name="Console-Source"]'
   );
+
+  console.log(`getFrameLocationsFromMessage:187 - frameLocations: ${frameLocations}`);
+
   return await frameLocations.allInnerTexts();
 }
 
 export async function getErrorFrameLocationsFromMessage(message: Locator) {
+  console.log(`getErrorFrameLocationsFromMessage:193 - message: ${message}`);
   await expandErrorStack(message);
+  console.log(`getErrorFrameLocationsFromMessage:200 - expandErrorStack done}`);
   const frameLocations = message.locator(
     '[data-test-name="ErrorStack"] [data-test-name="Console-Source"]'
   );
+  console.log(`getErrorFrameLocationsFromMessage:204 - frameLocations: ${frameLocations}`);
   return await frameLocations.allInnerTexts();
 }
 
